@@ -37,7 +37,7 @@
                 @endisset
 
                 <!-- Page Content -->
-                <main class="flex-1">
+                <main class="flex-1 lg:p-4">
                     {{ $slot }}
                 </main>
 
