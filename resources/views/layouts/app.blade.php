@@ -18,6 +18,7 @@
     </head>
     <body class="font-sans antialiased bg-slate-100">
         <div class="flex">
+
             @livewire('sidebar')
 
             <div class="min-h-dvh flex-1 flex flex-col">

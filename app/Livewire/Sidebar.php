@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Livewire\Component;
 
 class Sidebar extends Component
@@ -18,10 +19,15 @@ class Sidebar extends Component
 
     public function toggleDesktop() {
         $this->desktopState = ! $this->desktopState;
+        Cookie::queue('sidebar', $this->desktopState ? 1 : 0);
     }
 
     public function toggleMobile() {
         $this->mobileState =! $this->mobileState;
+    }
+
+    public function mount() {
+        $this->desktopState = !Cookie::has('sidebar') ? true : (Cookie::get('sidebar') ? true : false);
     }
 
     public function logout() {
