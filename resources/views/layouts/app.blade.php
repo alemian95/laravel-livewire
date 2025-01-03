@@ -14,6 +14,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
     <body class="font-sans antialiased bg-slate-100">
         <div class="flex">
@@ -26,13 +27,13 @@
                 <!-- Page Heading -->
                 @isset($header)
                     <header class="bg-white shadow">
-                        <div class="max-w-7xl mx-auto p-6">
+                        <div class="max-w-7xl mx-auto p-6 flex gap-4 items-center">
+                            <button class="hidden lg:block" onclick="Livewire.dispatch('toggledesktopsidebar')"><i class="fa-solid fa-sidebar"></i><i class="fa-solid fa-bars text-lg"></i></button>
+                            <button class="lg:hidden" onclick="Livewire.dispatch('togglemobilesidebar')"><i class="fa-solid fa-bars text-lg"></i></button>
                             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                                 {{ $header }}
                             </h2>
                         </div>
-                        <button class="hidden lg:block" onclick="Livewire.dispatch('toggledesktopsidebar')">toggle sidebar</button>
-                        <button class="lg:hidden" onclick="Livewire.dispatch('togglemobilesidebar')">toggle sidebar</button>
                     </header>
                 @endisset
 
