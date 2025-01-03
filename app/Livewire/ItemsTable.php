@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Http\Controllers\ItemController;
 use App\Models\Item;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,6 +16,7 @@ use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 
 final class ItemsTable extends PowerGridComponent
 {
+
     public string $tableName = 'items-table-kuzfgo-table';
 
     public function setUp(): array
@@ -53,9 +55,13 @@ final class ItemsTable extends PowerGridComponent
                 @else
                     <span class="badge bg-red-600 text-white">Inactive</span>
                 @endif
-                blade, []);
+                blade);
             })
-            ->add('value')
+            ->add('value', function ($row) {
+                return Blade::render(<<<blade
+                <span class="font-semibold">$row->value</span>
+                blade);
+            })
             ->add('created_at');
     }
 
@@ -77,7 +83,8 @@ final class ItemsTable extends PowerGridComponent
 
             Column::make('Value', 'value')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->editOnClick(),
 
             Column::make('Created at', 'human_created_at', 'created_at')
                 ->sortable(),
@@ -99,14 +106,39 @@ final class ItemsTable extends PowerGridComponent
         redirect(route('items.edit', $rowId));
     }
 
+    #[\Livewire\Attributes\On('delete')]
+    public function delete($rowId): void
+    {
+        app(ItemController::class)->destroy(Item::findOrFail($rowId));
+    }
+
+    public function onUpdatedEditable(string|int $id, string $field, string $value): void
+    {
+        try {
+            Item::findOrFail($id)->update([$field => e($value)]);
+        } catch (\Exception $e) {
+            $this->js('alert(`'.str_replace('`', '\`', $e->getMessage()).'`)');
+        }
+    }
+
     public function actions(Item $row): array
     {
         return [
             Button::add('edit')
-                ->slot('Edit: '.$row->id)
+                ->slot(Blade::render(<<<blade
+                   <i class="fa-solid fa-pencil text-lg"></i>
+                blade))
                 ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->class('text-yellow-500')
+                ->dispatch('edit', ['rowId' => $row->id]),
+            Button::add('delete')
+                ->slot(Blade::render(<<<blade
+                    <i class="fa-solid fa-trash-can text-lg"></i>
+                blade))
+                ->id()
+                ->class('text-red-600')
+                ->confirm("Are you sure?")
+                ->dispatch('delete', ['rowId' => $row->id]),
         ];
     }
 
