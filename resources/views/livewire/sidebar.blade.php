@@ -5,29 +5,29 @@
         </div>
         <div class="flex-1 flex flex-col gap-2">
             <a class="no-underline w-full" href="{{ route('dashboard') }}">
-                <div class="text-lg flex gap-4 items-center cursor-pointer rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "flex justify-center" }}">
+                <div class="text-lg flex gap-4 items-center cursor-pointer rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "md:flex md:justify-center" }}">
                     <i class="fa-solid fa-house"></i>
-                    <span class="{{ $desktopState ? "block" : "hidden" }}">Dashboard</span>
+                    <span class="{{ $desktopState ? "block" : "md:hidden" }}">Dashboard</span>
                 </div>
             </a>
             <hr>
             <a class="no-underline w-full" href="{{ route('profile.edit') }}">
-                <div class="flex gap-4 items-center cursor-pointer rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "flex justify-center" }}">
+                <div class="flex gap-4 items-center cursor-pointer rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "md:flex md:justify-center" }}">
                     <i class="fa-solid fa-user"></i>
-                    <span class="{{ $desktopState ? "block" : "hidden" }}">Profile</span>
+                    <span class="{{ $desktopState ? "block" : "md:hidden" }}">Profile</span>
                 </div>
             </a>
             <a class="no-underline w-full" href="{{ route('dashboard') }}">
-                <div class="flex gap-4 items-center cursor-pointer rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "flex justify-center" }}">
+                <div class="flex gap-4 items-center cursor-pointer rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "md:flex md:justify-center" }}">
                     <i class="fa-solid fa-wrench"></i>
-                    <span class="{{ $desktopState ? "block" : "hidden" }}">Settings</span>
+                    <span class="{{ $desktopState ? "block" : "md:hidden" }}">Settings</span>
                 </div>
             </a>
         </div>
         <div class="flex flex-col gap-2">
-            <div class="w-full flex gap-4 items-center cursor-pointer text-red-600 rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "flex justify-center" }}" wire:click="logout">
+            <div class="w-full flex gap-4 items-center cursor-pointer text-red-600 rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "md:flex md:justify-center" }}" wire:click="logout">
                 <i class="fa-solid fa-right-from-bracket"></i>
-                <span class="{{ $desktopState ? "block" : "hidden" }}">Logout</span>
+                <span class="{{ $desktopState ? "block" : "md:hidden" }}">Logout</span>
             </div>
         </div>
     </div>
