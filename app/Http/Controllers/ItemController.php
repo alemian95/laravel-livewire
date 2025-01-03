@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
+use Illuminate\Support\Facades\View;
 
 class ItemController extends Controller
 {
@@ -13,7 +14,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return Item::all();
+        return View::make('items.index');
     }
 
     /**

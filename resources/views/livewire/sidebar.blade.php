@@ -11,6 +11,12 @@
                 </div>
             </a>
             <hr>
+            <a class="no-underline w-full" href="{{ route('items.index') }}">
+                <div class="flex gap-4 items-center cursor-pointer rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "md:flex md:justify-center" }}">
+                    <i class="fa-solid fa-list"></i>
+                    <span class="{{ $desktopState ? "block" : "md:hidden" }}">Items</span>
+                </div>
+            </a>
             <a class="no-underline w-full" href="{{ route('profile.edit') }}">
                 <div class="flex gap-4 items-center cursor-pointer rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "md:flex md:justify-center" }}">
                     <i class="fa-solid fa-user"></i>
