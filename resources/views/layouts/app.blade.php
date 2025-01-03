@@ -21,13 +21,10 @@
 
             @livewire('sidebar')
 
-            <div class="min-h-dvh flex-1 flex flex-col">
-
-                {{-- @include('layouts.navigation') --}}
-
+            <div class="h-dvh flex-1 flex flex-col">
                 <!-- Page Heading -->
                 @isset($header)
-                    <header class="bg-white shadow">
+                    <header class="bg-white border-b shadow z-40">
                         <div class="max-w-7xl mx-auto p-6 flex gap-4 items-center">
                             <button class="hidden lg:block" onclick="Livewire.dispatch('toggledesktopsidebar')"><i class="fa-solid fa-sidebar"></i><i class="fa-solid fa-bars text-lg"></i></button>
                             <button class="lg:hidden" onclick="Livewire.dispatch('togglemobilesidebar')"><i class="fa-solid fa-bars text-lg"></i></button>
@@ -39,14 +36,11 @@
                 @endisset
 
                 <!-- Page Content -->
-                <main class="flex-1 lg:p-4">
+                <main class="flex-1 lg:p-4 overflow-auto">
                     {{ $slot }}
                 </main>
-
-                <footer>
-                    <p class="text-center text-sm text-slate-600">&copy; {{ date('Y') }} - Laravel Livewire</p>
-                </footer>
             </div>
+
         </div>
 
         @livewireScripts
