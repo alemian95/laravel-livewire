@@ -48,15 +48,16 @@ final class ItemsTable extends PowerGridComponent
             ->add('id')
             ->add('code')
             ->add('name')
-            ->add('is_active', function ($row) {
-                return Blade::render(<<<blade
-                @if($row->is_active)
-                   <span class="badge bg-green-600 text-white">Active</span>
-                @else
-                    <span class="badge bg-red-600 text-white">Inactive</span>
-                @endif
-                blade);
-            })
+            // ->add('is_active', function ($row) {
+            //     return Blade::render(<<<blade
+            //     @if($row->is_active)
+            //        <span class="badge bg-green-600 text-white">Active</span>
+            //     @else
+            //         <span class="badge bg-red-600 text-white">Inactive</span>
+            //     @endif
+            //     blade);
+            // })
+            ->add('is_active')
             ->add('value', function ($row) {
                 return Blade::render(<<<blade
                 <span class="font-semibold">$row->value</span>
@@ -79,7 +80,8 @@ final class ItemsTable extends PowerGridComponent
 
             Column::make('Is active', 'is_active')
                 ->sortable()
-                ->searchable(),
+                ->toggleable(trueLabel: 'Yes', falseLabel: 'No'),
+                // ->searchable(),
 
             Column::make('Value', 'value')
                 ->sortable()
@@ -113,6 +115,15 @@ final class ItemsTable extends PowerGridComponent
     }
 
     public function onUpdatedEditable(string|int $id, string $field, string $value): void
+    {
+        try {
+            Item::findOrFail($id)->update([$field => e($value)]);
+        } catch (\Exception $e) {
+            $this->js('alert(`'.str_replace('`', '\`', $e->getMessage()).'`)');
+        }
+    }
+
+    public function onUpdatedToggleable(string $id, string $field, string $value): void
     {
         try {
             Item::findOrFail($id)->update([$field => e($value)]);
