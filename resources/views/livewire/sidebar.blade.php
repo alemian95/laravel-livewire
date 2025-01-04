@@ -2,7 +2,7 @@
     <div class="p-4 h-full w-full flex flex-col">
         <div>
             <div class="flex justify-end"><button class="lg:hidden" wire:click="toggleMobile"><i class="fa-solid fa-xmark text-lg"></i></button></div>
-            <a class="no-underline w-full" href="{{ route('dashboard') }}">
+            <a class="no-underline w-full focus:ring-0 focus:ring-offset-0 focus:ring-transparent" href="{{ route('dashboard') }}">
                 <div class="text-lg flex gap-4 items-center cursor-pointer rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "md:flex md:justify-center" }}">
                     <i class="fa-solid fa-house"></i>
                     <span class="{{ $desktopState ? "block" : "md:hidden" }}">Dashboard</span>
@@ -11,19 +11,19 @@
         </div>
         <hr>
         <div class="flex-1 flex flex-col gap-2 overflow-auto">
-            <a class="no-underline w-full focus:outline-none" href="{{ route('items.index') }}">
+            <a class="no-underline w-full focus:ring-0 focus:ring-offset-0 focus:ring-transparent" href="{{ route('items.index') }}">
                 <div class="flex gap-4 items-center cursor-pointer rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "md:flex md:justify-center" }}">
                     <i class="fa-solid fa-list"></i>
                     <span class="{{ $desktopState ? "block" : "md:hidden" }}">Items</span>
                 </div>
             </a>
-            <a class="no-underline w-full" href="{{ route('profile.edit') }}">
+            <a class="no-underline w-full  focus:ring-0 focus:ring-offset-0 focus:ring-transparent" href="{{ route('profile.edit') }}">
                 <div class="flex gap-4 items-center cursor-pointer rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "md:flex md:justify-center" }}">
                     <i class="fa-solid fa-user"></i>
                     <span class="{{ $desktopState ? "block" : "md:hidden" }}">Profile</span>
                 </div>
             </a>
-            <a class="no-underline w-full" href="{{ route('dashboard') }}">
+            <a class="no-underline w-full  focus:ring-0 focus:ring-offset-0 focus:ring-transparent" href="{{ route('dashboard') }}">
                 <div class="flex gap-4 items-center cursor-pointer rounded py-2 px-4 hover:bg-slate-300/40 {{ $desktopState ? "" : "md:flex md:justify-center" }}">
                     <i class="fa-solid fa-wrench"></i>
                     <span class="{{ $desktopState ? "block" : "md:hidden" }}">Settings</span>
