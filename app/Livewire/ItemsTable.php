@@ -13,9 +13,12 @@ use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Facades\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
+use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
 final class ItemsTable extends PowerGridComponent
 {
+
+    use WithExport;
 
     public string $tableName = 'items-table-kuzfgo-table';
 
@@ -100,6 +103,10 @@ final class ItemsTable extends PowerGridComponent
     public function filters(): array
     {
         return [
+            Filter::inputText('code', 'code'),
+            Filter::boolean('is_active')->label("Active", "Inactive"),
+            Filter::number('value', 'value'),
+            Filter::datetimepicker('human_created_at', 'created_at')
         ];
     }
 
@@ -157,6 +164,7 @@ final class ItemsTable extends PowerGridComponent
                 blade))
                 ->id()
                 ->class('text-yellow-500')
+                ->tooltip("Edit")
                 ->dispatch('edit', ['rowId' => $row->id]),
             Button::add('delete')
                 ->slot(Blade::render(<<<blade
@@ -165,6 +173,7 @@ final class ItemsTable extends PowerGridComponent
                 ->id()
                 ->class('text-red-600')
                 ->confirm("Are you sure?")
+                ->tooltip("Delete")
                 ->dispatch('delete', ['rowId' => $row->id]),
         ];
     }
