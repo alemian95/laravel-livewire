@@ -48,16 +48,18 @@ final class ItemsTable extends PowerGridComponent
             ->add('id')
             ->add('code')
             ->add('name')
-            // ->add('is_active', function ($row) {
-            //     return Blade::render(<<<blade
-            //     @if($row->is_active)
-            //        <span class="badge bg-green-600 text-white">Active</span>
-            //     @else
-            //         <span class="badge bg-red-600 text-white">Inactive</span>
-            //     @endif
-            //     blade);
-            // })
-            ->add('is_active')
+            ->add('is_active', function ($row) {
+                return Blade::render(<<<blade
+                    <div class="cursor-pointer" x-data="{rowId: $row->id}">
+                        @if($row->is_active)
+                            <span class="badge bg-green-600 text-white" wire:click="toggle(rowId)">Active</span>
+                        @else
+                            <span class="badge bg-red-600 text-white" wire:click="toggle(rowId)">Inactive</span>
+                        @endif
+                    </div>
+                blade);
+            })
+            // ->add('is_active')
             ->add('value', function ($row) {
                 return Blade::render(<<<blade
                 <span class="font-semibold">$row->value</span>
@@ -79,8 +81,8 @@ final class ItemsTable extends PowerGridComponent
                 ->searchable(),
 
             Column::make('Is active', 'is_active')
-                ->sortable()
-                ->toggleable(trueLabel: 'Yes', falseLabel: 'No'),
+                ->sortable(),
+                // ->toggleable(trueLabel: 'Yes', falseLabel: 'No'),
                 // ->searchable(),
 
             Column::make('Value', 'value')
@@ -112,6 +114,12 @@ final class ItemsTable extends PowerGridComponent
     public function delete($rowId): void
     {
         app(ItemController::class)->destroy(Item::findOrFail($rowId));
+    }
+
+    public function toggle($rowId): void
+    {
+        $item = Item::findOrFail($rowId);
+        $item->update(['is_active' => !$item->is_active]);
     }
 
     public function onUpdatedEditable(string|int $id, string $field, string $value): void
