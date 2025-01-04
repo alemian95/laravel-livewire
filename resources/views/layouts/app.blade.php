@@ -25,7 +25,7 @@
                 <!-- Page Heading -->
                 @isset($header)
                     <header class="bg-white border-b shadow z-40">
-                        <div class="max-w-7xl mx-auto p-6 flex gap-4 items-center">
+                        <div class="max-w-screen-2xl mx-auto p-4 flex gap-4 items-center">
                             <button class="hidden lg:block" onclick="Livewire.dispatch('toggledesktopsidebar')"><i class="fa-solid fa-sidebar"></i><i class="fa-solid fa-bars text-lg"></i></button>
                             <button class="lg:hidden" onclick="Livewire.dispatch('togglemobilesidebar')"><i class="fa-solid fa-bars text-lg"></i></button>
                             <h2 class="font-semibold text-xl text-gray-800 leading-tight">

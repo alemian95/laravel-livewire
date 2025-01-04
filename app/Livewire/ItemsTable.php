@@ -62,7 +62,7 @@ final class ItemsTable extends PowerGridComponent
             // ->add('is_active')
             ->add('value', function ($row) {
                 return Blade::render(<<<blade
-                <span class="font-semibold">$row->value</span>
+                    <span class="font-semibold">$row->value</span>
                 blade);
             })
             ->add('created_at');
@@ -113,13 +113,21 @@ final class ItemsTable extends PowerGridComponent
     #[\Livewire\Attributes\On('delete')]
     public function delete($rowId): void
     {
-        app(ItemController::class)->destroy(Item::findOrFail($rowId));
+        try {
+            app(ItemController::class)->destroy(Item::findOrFail($rowId));
+        } catch (\Exception $e) {
+            $this->js('alert(`'.str_replace('`', '\`', $e->getMessage()).'`)');
+        }
     }
 
     public function toggle($rowId): void
     {
-        $item = Item::findOrFail($rowId);
-        $item->update(['is_active' => !$item->is_active]);
+        try {
+            $item = Item::findOrFail($rowId);
+            $item->update(['is_active' => !$item->is_active]);
+        } catch (\Exception $e) {
+            $this->js('alert(`'.str_replace('`', '\`', $e->getMessage()).'`)');
+        }
     }
 
     public function onUpdatedEditable(string|int $id, string $field, string $value): void

@@ -4,8 +4,8 @@
         {{ __('Dashboard') }}
     </x-slot>
 
-    <div class="py-12">
-        <x-card class="max-w-7xl mx-auto">
+    <div class="py-8">
+        <x-card class="max-w-screen-xl mx-auto">
             {{ __("You're logged in!") }}
         </x-card>
     </div>
