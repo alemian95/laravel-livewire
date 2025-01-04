@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Blade;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Components\SetUp\Exportable;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Facades\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
@@ -32,6 +33,9 @@ final class ItemsTable extends PowerGridComponent
             PowerGrid::footer()
                 ->showPerPage()
                 ->showRecordCount(),
+
+            PowerGrid::exportable('items-export')
+                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV)
         ];
     }
 
@@ -51,7 +55,7 @@ final class ItemsTable extends PowerGridComponent
             ->add('id')
             ->add('code')
             ->add('name')
-            ->add('is_active', function ($row) {
+            ->add('html_is_active', function ($row) {
                 return Blade::render(<<<blade
                     <div class="cursor-pointer" x-data="{rowId: $row->id}">
                         @if($row->is_active)
@@ -62,51 +66,89 @@ final class ItemsTable extends PowerGridComponent
                     </div>
                 blade);
             })
-            // ->add('is_active')
-            ->add('value', function ($row) {
+            ->add('raw_is_active', function ($row) {
+                return Blade::render(<<<blade
+                    @if($row->is_active)
+                        Active
+                    @else
+                        Inactive
+                    @endif
+                blade);
+            })
+            ->add('html_value', function ($row) {
                 return Blade::render(<<<blade
                     <span class="font-semibold">$row->value</span>
                 blade);
             })
-            ->add('created_at');
+            ->add('raw_value', function ($row) {
+                return Blade::render(<<<blade
+                    $row->value
+                blade);
+            })
+            ->add('html_created_at', function ($row) {
+                return Blade::render(<<<blade
+                    $row->human_created_at
+                blade);
+            })
+            ->add('raw_created_at', function ($row) {
+                return Blade::render(<<<blade
+                    $row->created_at
+                blade);
+            });
     }
 
     public function columns(): array
     {
         return [
-            Column::make('Id', 'id'),
+            Column::make('Id', 'id')
+                ->visibleInExport(true),
+
             Column::make('Code', 'code')
+                ->visibleInExport(true)
                 ->sortable()
                 ->searchable(),
 
             Column::make('Name', 'name')
+                ->visibleInExport(true)
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Is active', 'is_active')
+            Column::make('Is active', 'html_is_active', 'is_active')
+                ->visibleInExport(false)
                 ->sortable(),
                 // ->toggleable(trueLabel: 'Yes', falseLabel: 'No'),
-                // ->searchable(),
+            Column::make('Is active', 'raw_is_active', 'is_active')
+                ->visibleInExport(true)
+                ->hidden(),
 
-            Column::make('Value', 'value')
+            Column::make('Value', 'html_value', 'value')
+                ->visibleInExport(false)
                 ->sortable()
                 ->searchable()
                 ->editOnClick(),
+            Column::make('Value', 'raw_value', 'value')
+                ->visibleInExport(true)
+                ->hidden(),
 
-            Column::make('Created at', 'human_created_at', 'created_at')
+            Column::make('Created at', 'html_created_at', 'created_at')
+                ->visibleInExport(false)
                 ->sortable(),
+            Column::make('Created at', 'raw_created_at', 'created_at')
+                ->visibleInExport(true)
+                ->hidden(),
 
             Column::action('Action')
+                ->visibleInExport(false)
         ];
     }
 
     public function filters(): array
     {
         return [
-            Filter::inputText('code', 'code'),
+            Filter::inputText('code'),
             Filter::boolean('is_active')->label("Active", "Inactive"),
-            Filter::number('value', 'value'),
-            Filter::datetimepicker('human_created_at', 'created_at')
+            Filter::number('value'),
+            Filter::datetimepicker('created_at')
         ];
     }
 
