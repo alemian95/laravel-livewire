@@ -10,9 +10,12 @@
                     'bg-green-200 border-green-600 text-green-800': '{{ $toast['type'] }}' == 'success',
                     'bg-red-200 border-red-600 text-red-800': '{{ $toast['type'] }}' == 'error'
                 }"
-                class="px-4 py-2 rounded shadow-lg">
-                <strong>{{ $toast['title'] }}</strong>
-                <p>{{ $toast['message'] }}</p>
+                class="px-4 py-2 rounded shadow-lg"
+            >
+                <div>
+                    <div class="flex justify-between items-center"><strong>{{ $toast['title'] }}</strong><i x-on:click="show = false" class="fa-solid fa-xmark cursor-pointer"></i></div>
+                    <p>{{ $toast['message'] }}</p>
+                </div>
             </div>
         @endforeach
     </div>
