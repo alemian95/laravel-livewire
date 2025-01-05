@@ -7,7 +7,7 @@
     </x-slot>
 
     <div class="py-8">
-        <x-card class="max-w-screen-xl mx-auto">
+        <x-card class="max-w-screen-2xl mx-auto">
             <div class="flex items-center justify-end">
                 <a href="{{ route('items.create') }}">
                     <x-primary-button class="text-xs">

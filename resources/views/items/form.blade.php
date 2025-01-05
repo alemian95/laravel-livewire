@@ -12,7 +12,7 @@
             <a href="{{ route('items.index') }}">&laquo; Back to list</a>
         </div>
 
-        <x-card class="max-w-screen-xl mx-auto mt-8">
+        <x-card class="max-w-screen-2xl mx-auto mt-8">
             <form method="post" action="{{ isset($item) ? route('items.update', $item->id) : route('items.store') }}">
 
                 @csrf

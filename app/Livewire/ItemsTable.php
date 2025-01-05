@@ -75,16 +75,7 @@ final class ItemsTable extends PowerGridComponent
                     @endif
                 blade);
             })
-            ->add('html_value', function ($row) {
-                return Blade::render(<<<blade
-                    <span class="font-semibold">$row->value</span>
-                blade);
-            })
-            ->add('raw_value', function ($row) {
-                return Blade::render(<<<blade
-                    $row->value
-                blade);
-            })
+            ->add('value')
             ->add('html_created_at', function ($row) {
                 return Blade::render(<<<blade
                     $row->human_created_at
@@ -93,6 +84,16 @@ final class ItemsTable extends PowerGridComponent
             ->add('raw_created_at', function ($row) {
                 return Blade::render(<<<blade
                     $row->created_at
+                blade);
+            })
+            ->add('html_updated_at', function ($row) {
+                return Blade::render(<<<blade
+                    $row->human_updated_at
+                blade);
+            })
+            ->add('raw_updated_at', function ($row) {
+                return Blade::render(<<<blade
+                    $row->updated_at
                 blade);
             });
     }
@@ -121,19 +122,23 @@ final class ItemsTable extends PowerGridComponent
                 ->visibleInExport(true)
                 ->hidden(),
 
-            Column::make('Value', 'html_value', 'value')
-                ->visibleInExport(false)
+            Column::make('Value', 'value', 'value')
+                ->visibleInExport(true)
                 ->sortable()
                 ->searchable()
                 ->editOnClick(),
-            Column::make('Value', 'raw_value', 'value')
-                ->visibleInExport(true)
-                ->hidden(),
 
             Column::make('Created at', 'html_created_at', 'created_at')
                 ->visibleInExport(false)
                 ->sortable(),
             Column::make('Created at', 'raw_created_at', 'created_at')
+                ->visibleInExport(true)
+                ->hidden(),
+
+            Column::make('Updated at', 'html_updated_at', 'updated_at')
+                ->visibleInExport(false)
+                ->sortable(),
+            Column::make('Updated at', 'raw_updated_at', 'updated_at')
                 ->visibleInExport(true)
                 ->hidden(),
 

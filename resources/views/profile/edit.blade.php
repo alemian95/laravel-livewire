@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-screen-xl mx-auto flex flex-col gap-8">
+        <div class="max-w-screen-2xl mx-auto flex flex-col gap-8">
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <x-card>
