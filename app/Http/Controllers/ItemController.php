@@ -22,7 +22,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return View::make('items.form');
     }
 
     /**
@@ -30,7 +30,9 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-        //
+        $item = new Item($request->all());
+        $item->save();
+        return redirect()->route('items.index')->with('flash_message', 'Item created successfully!');
     }
 
     /**
@@ -38,7 +40,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+        return $item;
     }
 
     /**
@@ -46,7 +48,7 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        return View::make('items.form', compact('item'));
     }
 
     /**
@@ -54,7 +56,9 @@ class ItemController extends Controller
      */
     public function update(UpdateItemRequest $request, Item $item)
     {
-        //
+        $item->fill($request->all());
+        $item->save();
+        return redirect()->route('items.index')->with('flash_message', 'Item updated successfully!');
     }
 
     /**

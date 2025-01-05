@@ -11,7 +11,7 @@ class UpdateItemRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'code' => 'required|unique:items,code,'.$this->item->id,
+            'value' => 'required|numeric|min:0',
+            'is_active' => 'required|boolean'
         ];
     }
 }

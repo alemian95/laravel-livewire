@@ -8,7 +8,17 @@
 
     <div class="py-8">
         <x-card class="max-w-screen-xl mx-auto">
-            <livewire:items-table/>
+            <div class="flex items-center justify-end">
+                <a href="{{ route('items.create') }}">
+                    <x-primary-button class="text-xs">
+                        {{ __('Create Item') }}
+                    </x-primary-button>
+                </a>
+            </div>
+
+            <div class="mt-4">
+                <livewire:items-table />
+            </div>
         </x-card>
     </div>
 
