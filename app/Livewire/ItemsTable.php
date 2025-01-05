@@ -181,6 +181,19 @@ final class ItemsTable extends PowerGridComponent
 
     public function onUpdatedEditable(string|int $id, string $field, string $value): void
     {
+
+        if (! $field === 'value') {
+            $this->js('alert(`Cannot update field`)');
+            return;
+        }
+
+        if ($field === 'value') {
+            if (! is_numeric($value)) {
+                $this->js('alert(`Input data must be integer`)');
+                return;
+            }
+        }
+
         try {
             Item::findOrFail($id)->update([$field => e($value)]);
         } catch (\Exception $e) {
