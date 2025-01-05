@@ -174,6 +174,7 @@ final class ItemsTable extends PowerGridComponent
         try {
             $item = Item::findOrFail($rowId);
             $item->update(['is_active' => !$item->is_active]);
+            $this->js("toast('success', 'Success', 'Item updated successfully', 3000);");
         } catch (\Exception $e) {
             $this->js('alert(`'.str_replace('`', '\`', $e->getMessage()).'`)');
         }
@@ -189,7 +190,7 @@ final class ItemsTable extends PowerGridComponent
 
         if ($field === 'value') {
             if (! is_numeric($value)) {
-                $this->js('alert(`Input data must be integer`)');
+                $this->js("toast('error', 'Error', 'Input data must be integer', 3000);");
                 return;
             }
         }
