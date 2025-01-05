@@ -13,7 +13,10 @@
                 class="px-4 py-2 rounded shadow-lg"
             >
                 <div>
-                    <div class="flex justify-between items-center"><strong>{{ $toast['title'] }}</strong><i x-on:click="show = false" class="fa-solid fa-xmark cursor-pointer"></i></div>
+                    <div class="flex justify-between items-center">
+                        <strong>{{ $toast['title'] }}</strong>
+                        <i wire:click="$dispatch('remove-toast', { id: '{{ $toast['id'] }}' })" class="fa-solid fa-xmark cursor-pointer"></i>
+                    </div>
                     <p>{{ $toast['message'] }}</p>
                 </div>
             </div>

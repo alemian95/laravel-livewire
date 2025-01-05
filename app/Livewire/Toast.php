@@ -20,6 +20,7 @@ class Toast extends Component
         $this->dispatch('toast-timer', ['id' => $id, 'duration' => $duration]);
     }
 
+    #[\Livewire\Attributes\On('remove-toast')]
     public function removeToast($id)
     {
         $this->toasts = array_filter($this->toasts, fn($toast) => $toast['id'] !== $id);
