@@ -6,18 +6,18 @@
                 x-show="show"
                 x-init="setTimeout(() => show = false, {{ $toast['duration'] }});"
                 :class="{
-                    'bg-white border-none text-slate-900': '{{ $toast['type'] }}' == 'default',
-                    'bg-green-200 border-green-600 text-green-800': '{{ $toast['type'] }}' == 'success',
-                    'bg-red-200 border-red-600 text-red-800': '{{ $toast['type'] }}' == 'error'
+                    'bg-white border-2 border-slate-800 text-slate-900': '{{ $toast['type'] }}' == 'default',
+                    'bg-green-200 border-2 border-green-600 text-green-800': '{{ $toast['type'] }}' == 'success',
+                    'bg-red-200 border-2 border-red-600 text-red-800': '{{ $toast['type'] }}' == 'error'
                 }"
-                class="px-4 py-2 rounded shadow-lg"
+                class="px-2 py-2 rounded shadow"
             >
-                <div>
-                    <div class="flex justify-between items-center">
-                        <strong>{{ $toast['title'] }}</strong>
+                <div class="min-w-24">
+                    <div class="flex justify-between items-center gap-4">
+                        <strong class="text-sm">{{ $toast['title'] }}</strong>
                         <i wire:click="$dispatch('remove-toast', { id: '{{ $toast['id'] }}' })" class="fa-solid fa-xmark cursor-pointer"></i>
                     </div>
-                    <p>{{ $toast['message'] }}</p>
+                    <p class="text-xs">{{ $toast['message'] }}</p>
                 </div>
             </div>
         @endforeach
@@ -28,6 +28,5 @@
             // window.Livewire.emit('showToast', type, title, message, duration);
             Livewire.dispatch('showToast', { type, title, message, duration });
         }
-
     </script>
 </div>

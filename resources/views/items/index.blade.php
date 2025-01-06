@@ -1,7 +1,5 @@
 <x-app-layout>
 
-    <livewire:toast />
-
     <x-slot name="header">
         {{ __('Items') }}
     </x-slot>

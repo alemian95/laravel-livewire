@@ -202,6 +202,7 @@ final class ItemsTable extends PowerGridComponent
 
         try {
             Item::findOrFail($id)->update([$field => e($value)]);
+            $this->js("toast('success', 'Success', 'Item updated successfully', 3000);");
         } catch (\Exception $e) {
             $this->js('alert(`'.str_replace('`', '\`', $e->getMessage()).'`)');
         }
@@ -211,6 +212,7 @@ final class ItemsTable extends PowerGridComponent
     {
         try {
             Item::findOrFail($id)->update([$field => e($value)]);
+            $this->js("toast('success', 'Success', 'Item updated successfully', 3000);");
         } catch (\Exception $e) {
             $this->js('alert(`'.str_replace('`', '\`', $e->getMessage()).'`)');
         }

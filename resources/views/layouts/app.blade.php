@@ -17,6 +17,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
     <body class="font-sans antialiased bg-slate-100">
+
+        <livewire:toast />
+
         <div class="flex">
 
             @livewire('sidebar')
@@ -44,5 +47,18 @@
         </div>
 
         @livewireScripts
+
+        <script>
+
+            document.addEventListener('livewire:init', () => {
+                Livewire.on('toast-loaded', (event) => {
+                    @if(Session::has('flash_message'))
+                        toast('default', 'Message', `{{ str_replace('`', '\`', Session::get('flash_message')) }}`, 3000)
+                    @endif
+                });
+                console.log('livewire loaded')
+            });
+
+        </script>
     </body>
 </html>
