@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class Toast extends Component
@@ -14,8 +13,6 @@ class Toast extends Component
 
     public function showToast($type, $title, $message, $duration = 3000)
     {
-        Log::info($message);
-
         $id = uniqid();
         $this->toasts[] = compact('id', 'type', 'title', 'message', 'duration');
 
