@@ -57,7 +57,7 @@ final class ItemsTable extends PowerGridComponent
             ->add('code')
             ->add('name')
             ->add('html_is_active', function ($row) {
-                return Blade::render(View::make('components.datatable.is-active', [ 'row' => $row ])->render());
+                return View::make('components.datatable.is-active', [ 'row' => $row ])->render();
             })
             ->add('raw_is_active', function ($row) {
                 return $row->is_active ? 'Active' : 'Inactive';
