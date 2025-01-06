@@ -8,7 +8,7 @@
 
     <div class="py-8">
 
-        <div class="max-w-screen-xl mx-auto">
+        <div class="max-w-screen-2xl mx-auto">
             <a href="{{ route('items.index') }}">&laquo; Back to list</a>
         </div>
 
@@ -39,8 +39,8 @@
                     <div>
                         <x-input-label for="is_active" :value="__('Is active')" />
                         <select name="is_active" id="is_active" class="mt-1 block w-full border-slate-300 focus:border-sky-600 focus:ring-sky-600 rounded-md">
-                            <option value="1" @if ($item->is_active ?? null == 1) selected @endif>Active</option>
-                            <option value="0" @if ($item->is_active ?? null == 0) selected @endif>Inactive</option>
+                            <option value="1" @if (($item->is_active ?? null) == 1) selected @endif>Active</option>
+                            <option value="0" @if (($item->is_active ?? null) == 0) selected @endif>Inactive</option>
                         </select>
                         <x-input-error class="mt-2" :messages="$errors->get('is_active')" />
                     </div>
