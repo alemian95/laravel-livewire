@@ -7,6 +7,7 @@ use App\Models\Item;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Components\SetUp\Exportable;
@@ -56,38 +57,20 @@ final class ItemsTable extends PowerGridComponent
             ->add('code')
             ->add('name')
             ->add('html_is_active', function ($row) {
-                return Blade::render(<<<blade
-                    <div class="cursor-pointer" x-data="{rowId: $row->id}">
-                        @if($row->is_active)
-                            <span class="badge bg-green-600 text-white" wire:click="toggle(rowId)">Active</span>
-                        @else
-                            <span class="badge bg-red-600 text-white" wire:click="toggle(rowId)">Inactive</span>
-                        @endif
-                    </div>
-                blade);
+                return Blade::render(View::make('components.datatable.is-active', [ 'row' => $row ])->render());
             })
             ->add('raw_is_active', function ($row) {
-                return Blade::render(<<<blade
-                    @if($row->is_active)
-                        Active
-                    @else
-                        Inactive
-                    @endif
-                blade);
+                return $row->is_active ? 'Active' : 'Inactive';
             })
             ->add('value')
             ->add('html_created_at', function ($row) {
-                return Blade::render(<<<blade
-                    $row->human_created_at
-                blade);
+                return Blade::render(View::make('components.datatable.span', [ 'text' => $row->human_created_at ])->render());
             })
             ->add('raw_created_at', function ($row) {
                 return $row->created_at;
             })
             ->add('html_updated_at', function ($row) {
-                return Blade::render(<<<blade
-                    $row->human_updated_at
-                blade);
+                return Blade::render(View::make('components.datatable.span', [ 'text' => $row->human_updated_at ])->render());
             })
             ->add('raw_updated_at', function ($row) {
                 return $row->updated_at;
