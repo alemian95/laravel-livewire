@@ -82,9 +82,7 @@ final class ItemsTable extends PowerGridComponent
                 blade);
             })
             ->add('raw_created_at', function ($row) {
-                return Blade::render(<<<blade
-                    $row->created_at
-                blade);
+                return $row->created_at;
             })
             ->add('html_updated_at', function ($row) {
                 return Blade::render(<<<blade
@@ -92,9 +90,7 @@ final class ItemsTable extends PowerGridComponent
                 blade);
             })
             ->add('raw_updated_at', function ($row) {
-                return Blade::render(<<<blade
-                    $row->updated_at
-                blade);
+                return $row->updated_at;
             });
     }
 
