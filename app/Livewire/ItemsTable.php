@@ -64,13 +64,13 @@ final class ItemsTable extends PowerGridComponent
             })
             ->add('value')
             ->add('html_created_at', function ($row) {
-                return Blade::render(View::make('components.datatable.span', [ 'text' => $row->human_created_at ])->render());
+                return $row->human_created_at;
             })
             ->add('raw_created_at', function ($row) {
                 return $row->created_at;
             })
             ->add('html_updated_at', function ($row) {
-                return Blade::render(View::make('components.datatable.span', [ 'text' => $row->human_updated_at ])->render());
+                return $row->human_updated_at;
             })
             ->add('raw_updated_at', function ($row) {
                 return $row->updated_at;
