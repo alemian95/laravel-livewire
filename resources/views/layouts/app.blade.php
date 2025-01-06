@@ -21,7 +21,7 @@
 
             @livewire('sidebar')
 
-            <div class="h-dvh flex-1 flex flex-col">
+            <div class="h-dvh flex-1 flex flex-col overflow-hidden">
                 <!-- Page Heading -->
                 @isset($header)
                     <header class="bg-white border-b shadow z-40">
